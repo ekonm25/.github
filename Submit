@@ -1,0 +1,22 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = htmlspecialchars($_POST['name']);
+    $email = htmlspecialchars($_POST['email']);
+    $phone = htmlspecialchars($_POST['phone']);
+    $address = htmlspecialchars($_POST['address']);
+
+    $data = "Name: $name\nEmail: $email\nPhone: $phone\nAddress: $address\n\n";
+
+    $file = 'submissions/data.txt';
+
+    if (!is_dir('submissions')) {
+        mkdir('submissions', 0777, true);
+    }
+
+    file_put_contents($file, $data, FILE_APPEND | LOCK_EX);
+
+    echo "Data telah berhasil disimpan!";
+} else {
+    echo "Formulir tidak diisi dengan benar.";
+}
+?>
